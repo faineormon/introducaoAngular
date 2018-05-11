@@ -32,7 +32,7 @@
 					<td>{{aluno.nota1}}</td>
 					<td>{{aluno.nota2}}</td>
 					<td>{{aluno.nota3}}</td>
-					<td>{{media(aluno)}}</td>
+					<td>{{aluno.media}}</td>
 				</tr>
 			</tbody>
 		</table>
@@ -52,10 +52,24 @@
 				{nome:"Ana", email:"ana@mail.com.br", nota1:65, nota2:30, nota3:55}
 			];
 
-	$scope.media =function(Aluno) {
+	var init = function() {
+		$scope.alunos.forEach(function(aluno) {
+			aluno.media = mediaFun(aluno);
+		})
+	};
+
+		var mediaFun = function(Aluno) {
 		var media = (Aluno.nota1+Aluno.nota2+Aluno.nota3)/3;
 		return media.toFixed(2);	
-	};
+		};
+
+	/*$scope.media =function(Aluno) {
+		var media = (Aluno.nota1+Aluno.nota2+Aluno.nota3)/3;
+		return media.toFixed(2);	
+	};*/
+
+	init();
+
 		})
 </script>
 </body>
