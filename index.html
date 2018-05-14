@@ -36,10 +36,55 @@
 				</tr>
 			</tbody>
 		</table>
+		<div class="row">
+			<!-- Modal Trigger -->
+	  		<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Adicionar</a>
+		</div>
 	</main>
+	  
+
+	  <!-- Modal Structure -->
+	  <div id="modal1" class="modal modal-fixed-footer">
+	    <div class="modal-content">
+	      <h4>Adicionar aluno</h4>
+	      <p>Preencha os dados do aluno</p>
+	      <div class="row">
+	      	<div class="input-field col m6 s12">
+	          <input type="text" ng-model="Aluno.nome" class="validate">
+	          <label>Nome</label>
+	        </div>
+	        <div class="input-field col m6 s12">
+	          <input type="text" ng-model="Aluno.email" class="validate">
+	          <label>E-mail</label>
+	        </div>
+	        <div class="input-field col m4 s12">
+	          <input type="text" ng-model="Aluno.nota1" class="validate">
+	          <label>Nota1</label>
+	        </div>
+	        <div class="input-field col m4 s12">
+	          <input type="text" ng-model="Aluno.nota2" class="validate">
+	          <label>Nota2</label>
+	        </div>
+	        <div class="input-field col m4 s12">
+	          <input type="text" ng-model="Aluno.nota3" class="validate">
+	          <label>Nota3</label>
+	        </div>
+	      </div>
+	    </div>
+	    <div class="modal-footer">
+	      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Cancelar</a>
+	      <a ng-click="addAluno(Aluno)" class="waves-effect waves-light btn blue">Adicionar</a>
+	    </div>
+	  </div>
+<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>>
 <script type="text/javascript" src="js/materialize.min.js"></script>	
 <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-beta/js/materialize.min.js"></script>
 <script src="lib/angular/angular.min.js"></script>
+<script type="text/javascript">
+	    $(document).ready(function(){
+		    $('.modal').modal();
+		  });
+</script>
 <script type="text/javascript">
 	angular.module("meuModulo", [])
 		.controller("indexController", function($scope) {
@@ -59,7 +104,7 @@
 	};
 
 		var mediaFun = function(Aluno) {
-		var media = (Aluno.nota1+Aluno.nota2+Aluno.nota3)/3;
+		var media = (parseFloat(Aluno.nota1)+parseFloat(Aluno.nota2)+parseFloat(Aluno.nota3))/3;
 		return media.toFixed(2);	
 		};
 
@@ -67,6 +112,13 @@
 		var media = (Aluno.nota1+Aluno.nota2+Aluno.nota3)/3;
 		return media.toFixed(2);	
 	};*/
+
+	$scope.addAluno = function(Aluno) {
+		Aluno.media = mediaFun(Aluno);
+		$scope.alunos.push(Aluno);
+		$('#modal1').modal('close');
+		$scope.Aluno = {nome:"", email:"", nota1:'', nota2:'', nota3:'', media:''};
+	};
 
 	init();
 
