@@ -14,28 +14,31 @@
 		<div class="row">
 			<input type="text" ng-model="busca.nome" placeholder="Busca">
 		</div>
-		<table class="striped">
-			<thead>
-				<tr>
-					<th>Nome</th>
-					<th>E-mail</th>
-					<th>Nota1</th>
-					<th>Nota2</th>
-					<th>Nota3</th>
-					<th>Média</th>	
-				</tr>
-			</thead>
-			<tbody>
-				<tr ng-repeat="aluno in alunos | filter:busca">
-					<td>{{aluno.nome}}</td>
-					<td>{{aluno.email}}</td>
-					<td>{{aluno.nota1}}</td>
-					<td>{{aluno.nota2}}</td>
-					<td>{{aluno.nota3}}</td>
-					<td>{{aluno.media}}</td>
-				</tr>
-			</tbody>
-		</table>
+		<div class="row">
+			<table class="striped">
+				<thead>
+					<tr>
+						<th>Nome</th>
+						<th>E-mail</th>
+						<th>Nota1</th>
+						<th>Nota2</th>
+						<th>Nota3</th>
+						<th>Média</th>	
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="aluno in alunos | filter:busca">
+						<td>{{aluno.nome}}</td>
+						<td>{{aluno.email}}</td>
+						<td>{{aluno.nota1}}</td>
+						<td>{{aluno.nota2}}</td>
+						<td>{{aluno.nota3}}</td>
+						<td>{{aluno.media}}</td>
+					</tr>
+				</tbody>
+			</table>	
+		</div>
+		
 		<div class="row">
 			<!-- Modal Trigger -->
 	  		<a class="waves-effect waves-light btn modal-trigger" href="#modal1">Adicionar</a>
@@ -100,7 +103,8 @@
 	var init = function() {
 		$scope.alunos.forEach(function(aluno) {
 			aluno.media = mediaFun(aluno);
-		})
+		});
+		limpaForm();
 	};
 
 		var mediaFun = function(Aluno) {
@@ -117,8 +121,17 @@
 		Aluno.media = mediaFun(Aluno);
 		$scope.alunos.push(Aluno);
 		$('#modal1').modal('close');
-		$scope.Aluno = {nome:"", email:"", nota1:'', nota2:'', nota3:'', media:''};
+		limpaForm();
 	};
+
+	$scope.editarAluno = function(Aluno) {
+		$('#modal1').modal('open');
+		
+	}
+
+	var limpaForm = function() {
+		$scope.Aluno = {nome:"", email:"", nota1:'', nota2:'', nota3:'', media:''};
+	}
 
 	init();
 
