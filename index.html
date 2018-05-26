@@ -35,7 +35,10 @@
 						<td>{{aluno.nota2}}</td>
 						<td>{{aluno.nota3}}</td>
 						<td>{{aluno.media}}</td>
-						<td><button class="btn blue" ng-click="editarAluno(aluno)">Editar</button></td>
+						<td>
+							<button class="btn blue" ng-click="editarAluno(aluno)">Editar</button>
+							<button class="btn red" ng-click="deletarAluno(aluno)">Deletar</button>
+						</td>
 					</tr>
 				</tbody>
 			</table>	
@@ -119,7 +122,7 @@
 		$scope.editando = false;
 		limpaForm();
 		$('#modal1').modal('open');
-	}
+	};
 
 
 	$scope.addAluno = function(Aluno) {
@@ -138,7 +141,7 @@
 		$('#modal1').modal('open');
 		alunoEditar = Aluno;
 		
-	}
+	};
 
 	$scope.salvarAluno = function (Aluno) {
 		alunoEditar.nome = Aluno.nome;
@@ -148,11 +151,20 @@
 		alunoEditar.nota3 = Aluno.nota3;
 		alunoEditar.media = mediaFun(Aluno);
 		$('#modal1').modal('close');
-	}
+	};
+
+	$scope.deletarAluno = function(Aluno) {
+		for(var i in $scope.alunos) {
+			var aux = $scope.alunos[i];
+			if(Aluno === aux) {
+				$scope.alunos.splice(i,1);
+			}
+		}
+	};
 
 	var limpaForm = function() {
 		$scope.Aluno = {nome:"", email:"", nota1:'', nota2:'', nota3:'', media:''};
-	}
+	};
 
 	init();
 
